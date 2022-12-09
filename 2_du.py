@@ -35,6 +35,6 @@ with open("Data_prutok.csv", encoding="utf-8", newline='') as f:
 			suma_tyden = 0
 		index+=1
 		
-#cdbwjcbwk
+#druhej commit
 			
    
