@@ -59,11 +59,21 @@ with open("Data_prutok.csv", encoding="utf-8", newline='') as f:
 			pocitadlo_dnu_v_roku = 0
 			suma_rok = 0
 			stary_rok = rok
+			datum = radek[2].split(".")
+			datum[2] = str(int(radek[2].split(".")[2]) - 1)
+			datum = ".".join(datum)
+			radek[2] = datum
 			print(radek)
 		suma_rok += float(row[3])
 
-radek[3] = round(suma_rok/pocitadlo_dnu_v_roku,4)
+datum = radek[2].split(".")
+datum[2] = str(int(radek[2].split(".")[2]) + 1)
+datum = ".".join(datum)
+radek[2] = datum
+
+
 print (radek)
+
 """Otevřeme si soubor `parkoviste.csv` pro čtení a `pr.csv` pro zápis (parametr `"w"`)
 # \ na konci prvního řádku je proto, aby šel druhý open napsat na nový řádek
 with open("parkoviste.csv", encoding="utf-8", newline='') as f, \
