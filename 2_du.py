@@ -1,4 +1,5 @@
 import csv
+import copy
 
 """# Otevřeme a přečteme soubor Data_prutok.csv
 with open("Data_prutok.csv", encoding="utf-8", newline='') as f:
@@ -31,16 +32,19 @@ with open("Data_prutok.csv", encoding="utf-8", newline='') as f:
 
 novy_rok = False
 stary_rok = 0
-pocitadlo_dnu_v_roku = 0
+pocitadlo_dnu_v_roku = 1
 radek = []
 
 with open("Data_prutok.csv", encoding="utf-8", newline='') as f:
 	reader = csv.reader(f, delimiter=",")
 	for row in reader:
 		stary_rok = int(row[2].split(".")[2])
-		radek = row
+		radek = copy.deepcopy(row)
 		break
 
+f = open('out_rocni.csv', 'w',newline='')
+
+writer_rok = csv.writer(f)
 
 
 print("průmery za rok:")
@@ -48,33 +52,45 @@ with open("Data_prutok.csv", encoding="utf-8", newline='') as f:
 	reader = csv.reader(f, delimiter=",")
 	for row in reader:
 		rok = int(row[2].split(".")[2])
-		pocitadlo_dnu_v_roku += 1
 		if stary_rok == rok: 
 			novy_rok = False
 		else: 
 			novy_rok = True
 		if novy_rok == True:
-			radek = row
 			radek[3] = round(suma_rok/pocitadlo_dnu_v_roku,4)
 			pocitadlo_dnu_v_roku = 0
 			suma_rok = 0
 			stary_rok = rok
-			datum = radek[2].split(".")
-			datum[2] = str(int(radek[2].split(".")[2]) - 1)
+			datum = copy.deepcopy(radek[2].split("."))
+			datum[2] = str(radek[2].split(".")[2])
 			datum = ".".join(datum)
-			radek[2] = datum
-			print(radek)
+			radek[2] = copy.deepcopy(datum)
+			writer_rok.writerow(radek)
+			radek = copy.deepcopy(row)
 		suma_rok += float(row[3])
+		pocitadlo_dnu_v_roku += 1
 
-datum = radek[2].split(".")
+radek[3] = round(suma_rok/pocitadlo_dnu_v_roku,4)
+datum = copy.deepcopy(radek[2].split("."))
 datum[2] = str(int(radek[2].split(".")[2]) + 1)
 datum = ".".join(datum)
-radek[2] = datum
+radek[2] = copy.deepcopy(datum)
 
+writer_rok.writerow(radek)
 
-print (radek)
+f.close()
 
-"""Otevřeme si soubor `parkoviste.csv` pro čtení a `pr.csv` pro zápis (parametr `"w"`)
+"""
+
+f = open('out_rocni', 'w')
+
+writer_rok = csv.writer(f)
+
+writer_rok.writerow(radek)
+
+f.close()
+
+Otevřeme si soubor `parkoviste.csv` pro čtení a `pr.csv` pro zápis (parametr `"w"`)
 # \ na konci prvního řádku je proto, aby šel druhý open napsat na nový řádek
 with open("parkoviste.csv", encoding="utf-8", newline='') as f, \
 	open("pr.csv","w",encoding="utf-8", newline='') as fout:
