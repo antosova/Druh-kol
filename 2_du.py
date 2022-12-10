@@ -6,6 +6,8 @@ suma_tyden = 0
 suma_rok = 0
 pocitadlo_radku = 1
 radek = [] 
+minimum = sys.float_info.max
+maximum = sys.float_info.min
 
 novy_rok = False
 stary_rok = 0
@@ -28,6 +30,12 @@ try:
 				print("Data obsahují zápornou hodnotu průtoku.")
 				sys.exit()
 			suma_tyden += float(row[3])
+			if float(row[3]) > maximum:
+				maximum = float(row[3])
+				maxDen = row
+			if float(row[3]) < minimum:
+				minimum = float(row[3])	
+				minDen = row			
 			pocitadlo_radku+=1
 
 	if pocitadlo_radku % 7 != 0:                                       #poslední průměr program spočítá z tolika dat, kolik je k dispozici
@@ -74,3 +82,6 @@ except FileNotFoundError:
 	print("Soubor není.")
 except: 
 	print("Něco se šíleně pokazilo.")
+
+print ("Minimální průtok byl dne " + str(minDen[2]) + ". Hodnota průtoku byla" + str(minDen[3]))
+print ("Maximální průtok byl dne " + str(maxDen[2]) + ". Hodnota průtoku byla" + str(maxDen[3]))
