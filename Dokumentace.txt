@@ -1,0 +1,6 @@
+Program slouží k výpočtu sedmidenních a ročních průměrných průtoků řeky.
+Vstupní data musí být ve formátu .csv s názvem: Data_prutok.csv, v takové podobě, v jaké je lze stáhnout ze stránek ČHMÚ. (https://isvs.chmi.cz/ords/f?p=11002%3AHOME%3A12851880239963%3A%3A%3A%3A%3A&lon=15.4&lat=49.9&scale=1935360)
+Pro sedmidenní data je výstupem .csv soubor s názvem out_tydenni.csv.
+Pro roční data je výstupem .csv soubor s názvem out_rocni.csv.
+V každém řádku výstupních souborů je uvedeno počáteční datum daného období a průměrná hodnota průtoku v období.
+Program také vypočítá minimální a maximální průtok v evidovaném období a vypíše jej s datem do konzole.
